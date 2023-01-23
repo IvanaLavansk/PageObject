@@ -14,7 +14,7 @@ public class RefillPage {
     private SelenideElement confirmButton = $("[data-test-id=action-transfer]");
 
     public DashboardPage getStartRefillPage(DataHelper.CardNumber code) {
-        transferAmount.setValue(String.valueOf(PersonalAreaPage.CardBalance-200));
+        transferAmount.setValue(String.valueOf(PersonalAreaPage.getDifferenceToReduce()));
         cardNumberInput.setValue(code.getCode());
         confirmButton.click();
         return new DashboardPage();

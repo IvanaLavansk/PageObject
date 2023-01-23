@@ -3,10 +3,12 @@ package ru.netology.pageobject.test;
 import com.codeborne.selenide.Configuration;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
 import ru.netology.pageobject.data.DataHelper;
 import ru.netology.pageobject.page.*;
 
 import static com.codeborne.selenide.Selenide.open;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class MoneyTransferTest {
 
@@ -25,16 +27,31 @@ class MoneyTransferTest {
         verificationPage.validVerify(verificationCode);
         var personalPage = new PersonalAreaPage();
         personalPage.getMaxCardBalance();
-        if (PersonalAreaPage.numberMax.equals("first")) {
+        if (personalPage.getNumberMax().equals("first")) {
             var cardNumber = DataHelper.getCardNumberOne();
             var refillPage = new RefillPage();
             refillPage.getStartRefillPage(cardNumber);
-        } else if (PersonalAreaPage.numberMax.equals("second")) {
+        } else if (personalPage.getNumberMax().equals("second")) {
             var cardNumber = DataHelper.getCardNumberTwo();
             var refillPage = new RefillPage();
             refillPage.getStartRefillPage(cardNumber);
         }
-
+        var personalPageNew = new PersonalAreaPage();
+        if (PersonalAreaPage.getNumberMax().equals("first")) {
+            int expected1 = PersonalAreaPage.getCardBalanceMax()-PersonalAreaPage.getDifferenceToReduce();
+            int actual1 = personalPageNew.getCardBalanceFirst();
+            assertEquals(expected1, actual1);
+            int expected2 = PersonalAreaPage.getCardBalanceMin()+PersonalAreaPage.getDifferenceToReduce();
+            int actual2 = personalPageNew.getCardBalanceSecond();
+            assertEquals(expected2, actual2);
+        } else if (PersonalAreaPage.getNumberMax().equals("second")) {
+            int expected1 = PersonalAreaPage.getCardBalanceMax()-PersonalAreaPage.getDifferenceToReduce();
+            int actual1 = personalPageNew.getCardBalanceSecond();
+            assertEquals(expected1, actual1);
+            int expected2 = PersonalAreaPage.getCardBalanceMin()+PersonalAreaPage.getDifferenceToReduce();
+            int actual2 = personalPageNew.getCardBalanceFirst();
+            assertEquals(expected2, actual2);
+        }
     }
 
     @Test

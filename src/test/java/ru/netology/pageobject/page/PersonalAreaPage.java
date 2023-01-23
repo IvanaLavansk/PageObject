@@ -17,16 +17,36 @@ public class PersonalAreaPage {
     private SelenideElement secondBalanceButton = $("[data-test-id='0f3f5c2a-249e-4c3d-8287-09f7a039391d'] button");
     private final String idOne = "92df3f1c-a033-48e6-8390-206f6b1f56c0";
     private final String idTwo = "0f3f5c2a-249e-4c3d-8287-09f7a039391d";
-    public static int CardBalance;
-    public static String numberMax;
+    private static int cardBalanceMax;
+    private static int cardBalanceMin;
+    private static String numberMax;
+    private static int differenceToReduce = 250;
+
+    public static int getDifferenceToReduce() {
+        return differenceToReduce;
+    }
+
+    public static int getCardBalanceMax() {
+        return cardBalanceMax;
+    }
+
+    public static int getCardBalanceMin() {
+        return cardBalanceMin;
+    }
+
+    public static String getNumberMax() {
+        return numberMax;
+    }
 
     public DashboardPage getMaxCardBalance() {
         if (getCardBalance(idOne) >= getCardBalance(idTwo)) {
-            CardBalance = getCardBalance(idOne);
+            cardBalanceMax = getCardBalance(idOne);
+            cardBalanceMin = getCardBalance(idTwo);
             numberMax = "first";
             secondBalanceButton.click();
         } else {
-            CardBalance = getCardBalance(idTwo);
+            cardBalanceMax = getCardBalance(idTwo);
+            cardBalanceMin = getCardBalance(idOne);
             numberMax = "second";
             firstBalanceButton.click();
         }
@@ -45,4 +65,12 @@ public class PersonalAreaPage {
         val value = text.substring(start + balanceStart.length(), finish);
         return Integer.parseInt(value);
     }
+
+    public int getCardBalanceFirst() {
+        return getCardBalance(idOne);
+    }
+    public int getCardBalanceSecond() {
+        return getCardBalance(idTwo);
+    }
+
 }
