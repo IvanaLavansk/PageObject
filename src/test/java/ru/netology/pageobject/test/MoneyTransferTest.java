@@ -3,7 +3,6 @@ package ru.netology.pageobject.test;
 import com.codeborne.selenide.Configuration;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.openqa.selenium.By;
 import ru.netology.pageobject.data.DataHelper;
 import ru.netology.pageobject.page.*;
 
@@ -14,7 +13,6 @@ class MoneyTransferTest {
 
     @BeforeEach
     void setup() {
-        Configuration.holdBrowserOpen = true;
         open("http://localhost:9999");
     }
 
