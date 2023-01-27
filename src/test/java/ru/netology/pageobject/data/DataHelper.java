@@ -34,14 +34,6 @@ public class DataHelper {
         private String cardCode;
     }
 
-    public static CardNumber getCardNumberOne() {
-        return new CardNumber("5559 0000 0000 0001");
-    }
-
-    public static CardNumber getCardNumberTwo() {
-        return new CardNumber("5559 0000 0000 0002");
-    }
-
     public static CardNumber getCardNumber(String cardCode) {
         if (cardCode.contains("0001")) {
             cardCode = "5559 0000 0000 0002";
