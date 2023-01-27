@@ -20,10 +20,6 @@ public class DataHelper {
         return new AuthInfo("petya", "123qwerty");
     }
 
-    public static AuthInfo getWrongAuthInfo(AuthInfo original) {
-        return new AuthInfo("fedor", "123qwer45");
-    }
-
     @Value
     public static class VerificationCode {
         private String code;
@@ -33,19 +29,29 @@ public class DataHelper {
         return new VerificationCode("12345");
     }
 
-    public static VerificationCode getWrongVerificationCodeFor(AuthInfo authInfo) {
-        return new VerificationCode("54321");
-    }
-
     @Value
     public static class CardNumber {
-        private String code;
+        private String cardCode;
     }
 
     public static CardNumber getCardNumberOne() {
         return new CardNumber("5559 0000 0000 0001");
     }
+
     public static CardNumber getCardNumberTwo() {
         return new CardNumber("5559 0000 0000 0002");
     }
+
+    public static CardNumber getCardNumber(String cardCode) {
+        if (cardCode.contains("0001")) {
+            cardCode = "5559 0000 0000 0002";
+        } else if (cardCode.contains("0002")) {
+            cardCode = "5559 0000 0000 0001";
+        }
+        return new CardNumber(cardCode);
+    }
+
+    public static int CardValueSum;
+
+    public static int DifferenceToReduce = 200;
 }
