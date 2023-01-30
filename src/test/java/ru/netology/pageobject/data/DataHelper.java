@@ -34,16 +34,8 @@ public class DataHelper {
         private String cardCode;
     }
 
-    public static CardNumber getCardNumber(String cardCode) {
-        if (cardCode.contains("0001")) {
-            cardCode = "5559 0000 0000 0002";
-        } else if (cardCode.contains("0002")) {
-            cardCode = "5559 0000 0000 0001";
-        }
-        return new CardNumber(cardCode);
+    public static CardNumber getCardNumber() {
+        return new CardNumber("5559 0000 0000 0001");
     }
 
-    public static int CardValueSum;
-
-    public static int DifferenceToReduce = 200;
 }

@@ -4,7 +4,7 @@ import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import lombok.val;
-import ru.netology.pageobject.data.DataHelper;
+import ru.netology.pageobject.test.MoneyTransferTest;
 
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
@@ -22,17 +22,21 @@ public class DashboardPage {
     private final String idOne = locatorOne.substring(locatorOne.indexOf('\'') + 1, locatorOne.lastIndexOf('\''));
     private final String idTwo = locatorTwo.substring(locatorTwo.indexOf('\'') + 1, locatorTwo.lastIndexOf('\''));
 
+    public String getIdOne() {
+        return idOne;
+    }
+
+    public String getIdTwo() {
+        return idTwo;
+    }
+
     public DashboardPage() {
         heading.shouldBe(visible);
     }
 
     public RefillPage getCardBalanceButton() {
-        DataHelper.CardValueSum = getCardBalance(idOne) + getCardBalance(idTwo);
-        if (getCardBalance(idOne) >= getCardBalance(idTwo)) {
-            secondBalanceButton.click();
-        } else {
-            firstBalanceButton.click();
-        }
+        MoneyTransferTest.CardValueSum = getCardBalance(idOne) + getCardBalance(idTwo);
+        secondBalanceButton.click();
         return new RefillPage();
     }
 
@@ -47,18 +51,5 @@ public class DashboardPage {
         val value = text.substring(start + balanceStart.length(), finish);
         return Integer.parseInt(value);
     }
-    public int mustBeBalanceOne (){
-        val balanceOne = (DataHelper.CardValueSum + (getCardBalance(idOne) - getCardBalance(idTwo)))/2;
-        return balanceOne;
-    }
-    public int mustBeBalanceTwo (){
-        val balanceTwo = (DataHelper.CardValueSum - (getCardBalance(idOne) - getCardBalance(idTwo)))/2;
-        return balanceTwo;
-    }
-    public int getCardBalanceFirst() {
-        return getCardBalance(idOne);
-    }
-    public int getCardBalanceSecond() {
-        return getCardBalance(idTwo);
-    }
+
 }
